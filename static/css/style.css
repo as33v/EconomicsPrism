@@ -1,0 +1,32 @@
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: serif;
+}
+
+.main {
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	font-size: 18px;
+}
+
+.main button {
+	margin-top: 15px;
+	font-size: 20px;
+	padding: 10px 20px;
+	background: #eee;
+	border: 1px solid #bbb;
+	border-radius: 5px;
+}
+
+img {
+	max-width: 600px;
+	margin-bottom: 40px;
+}

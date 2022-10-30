@@ -1,0 +1,66 @@
+* {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	font-family: serif;
+	font-size: 16px;
+}
+
+.scene {
+	width: 100%;
+	height: 100vh;
+	background: linear-gradient(#bbb, transparent 1px), linear-gradient(90deg, #bbb, transparent 1px);
+	background-size: 15px 15px;
+	background-position: center center;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	perspective: 1000px;
+}
+
+.prism {
+	width: 250px;
+	height: 500px;
+	position: relative;
+	transform-style: preserve-3d;
+	transition: all .3s ease;
+}
+
+.side { position: absolute; width: inherit; height: inherit; border: 1px solid #333; opacity: 0.8; }
+.left-side { transform-origin: left center; transform: translateZ(-75px) rotateY(-60deg); }
+.right-side { transform-origin: right center; transform: translateZ(-75px) rotateY(60deg); }
+.back-side { transform: rotateY(180deg) translateZ(75px); }
+
+.topside-bg { position: absolute; width: 250px; height: 250px; transform-origin: left top; transform: translateZ(-75px) rotateX(90deg) translateZ(-500px); }
+.topside { position: absolute; width: inherit; height: 1px; background: #333; }
+.top-first { transform-origin: center top; transform: translateZ(-75px) rotateX(90deg); }
+.top-second { transform-origin: left top; transform: translateZ(-75px) rotateX(90deg) rotateZ(60deg); }
+.top-third { transform-origin: right top; transform: translateZ(-75px) rotateX(90deg) rotateZ(-60deg); }
+
+.text { position: absolute; transition: all .3s ease; }
+.text-social { transform: translate3d(calc(125px - 50%), 500px, 161.5px); }
+.text-economics { transform: translate3d(calc(-100% - 20px), 500px, -75px); }
+.text-ecologics { transform: translate3d(270px, 500px, -75px); }
+
+.dot {
+	position: absolute;
+	background: blue;
+	width: 12px;
+	height: 12px;
+	font-size: 10px;
+	font-weight: bold;
+	color: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 50%;
+}
+
+.checkbox { padding: 15px 20px; background: #eee; box-shadow: #aaa 0 0 10px; display: flex; align-items: center; position: absolute; top: 0; left: 0; }
+.checkbox input { margin-right: 5px; }
+.checkbox label { font-size: 18px; font-weight: bold; }

@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link href="/static/css/prism.css" rel="stylesheet">
+		<title>Economics Prism</title>
+	</head>
+	<body>
+		<div class="scene">
+			<div class="checkbox">
+				<input type="checkbox" id="topSideBtn">
+				<label for="topSideBtn">Вид сверху</label>
+			</div>
+			<div class="prism">
+				<div class="side left-side"><img src="/static/img/bg.svg"/></div>
+				<div class="side right-side"><img src="/static/img/bg.svg"/></div>
+				<div class="side back-side"><img src="/static/img/bg.svg"/></div>
+
+				<img src="/static/img/topbg.svg" class="topside-bg"/>
+				<div class="topside top-first"></div>
+				<div class="topside top-second"></div>
+				<div class="topside top-third"></div>
+
+				<div class="text text-economics">{{ economics_title }}</div>
+				<div class="text text-ecologics">{{ ecologics_title }}</div>
+				<div class="text text-social">{{ social_title }}</div>
+
+				{{ dots|safe }}
+			</div>
+		</div>
+
+		<script src="/static/js/main.js"></script>
+	</body>
+</html>
