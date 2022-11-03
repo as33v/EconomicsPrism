@@ -25,8 +25,19 @@
 				<div class="text text-ecologics">{{ ecologics_title }}</div>
 				<div class="text text-social">{{ social_title }}</div>
 
-				{{ dots|safe }}
+                {% for dot in dots %}
+                <div class="dot" data-x="{{ dot['x'] }}" data-y="{{ dot['y'] }}" data-z="{{ dot['z'] }}">
+                    {{ dot['id'] }}
+                </div>
+                {% endfor %}
 			</div>
+            <div class="regions">
+                <ol>
+                    {% for dot in dots %}
+                    <li>{{ dot['region'] }}</li>
+                    {% endfor %}
+                </ol>
+            </div>
 		</div>
 
 		<script src="/static/js/main.js"></script>

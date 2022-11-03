@@ -64,3 +64,5 @@ body {
 .checkbox { padding: 15px 20px; background: #eee; box-shadow: #aaa 0 0 10px; display: flex; align-items: center; position: absolute; top: 0; left: 0; }
 .checkbox input { margin-right: 5px; }
 .checkbox label { font-size: 18px; font-weight: bold; }
+
+.regions { padding: 15px 20px; position: absolute; top: 0; right: 0; }

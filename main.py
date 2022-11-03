@@ -19,18 +19,22 @@ def index():
         data_xls = pd.read_excel(f)
         data = json.loads(data_xls.to_json(force_ascii=False))
 
-        dots = ''
-        for i in range(len(data[REGION_TITLE])):
-            social = data[SOCIAL_TITLE][str(i)]
-            economics = data[ECONOMICS_TITLE][str(i)]
-            ecologics = data[ECOLOGICS_TITLE][str(i)]
+        dots = [] 
+        for i in data[REGION_TITLE]:
+            social = data[SOCIAL_TITLE][i]
+            economics = data[ECONOMICS_TITLE][i]
+            ecologics = data[ECOLOGICS_TITLE][i]
 
             x, y, z = get_coordinates(social, economics, ecologics)
-            dots += '<div class="dot" data-x="{x}" data-y="{y}" data-z="{z}">{number}</div>'.format(x=x, y=y, z=z, number=i+1)
+
+            dots.append({'id': int(i)+1,
+                         'region': data[REGION_TITLE][i],
+                         'x': x, 'y': y, 'z': z,})
 
         return render_template('prism.html', dots=dots,
                                social_title=SOCIAL_TITLE,
                                economics_title=ECONOMICS_TITLE,
                                ecologics_title=ECOLOGICS_TITLE)
+
     return render_template('index.html')
 
