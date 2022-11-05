@@ -1,3 +1,4 @@
+import os
 import json
 import pandas as pd
 from flask import Flask, request, render_template
@@ -38,3 +39,11 @@ def index():
 
     return render_template('index.html')
 
+
+if __name__ == '__main__':
+    if os.name == 'posix':
+        os.system('xdg-open http://127.0.0.1:8080')
+    elif os.name == 'nt':
+        os.system('start http://127.0.0.1:8080')
+
+    app.run(host='127.0.0.1', port=8080)
