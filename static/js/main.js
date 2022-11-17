@@ -9,6 +9,7 @@ const prismTextEconomicsTranslate = 'translate3d(calc(-100% - 20px), 500px, -75p
 const prismTextEcologicsTranslate = 'translate3d(270px, 500px, -75px)';
 let prismRotate = 0;
 let prismTranslateY = 0;
+let prismTranslateZ = 0;
 let prismScale = 1;
 
 const dots = document.querySelectorAll('.dot');
@@ -28,9 +29,13 @@ let topSide = false;
 prism.addEventListener('click', e => {
     prismScale = prismScale == 1 ? 2 : 1;
     prismTranslateY = 0;
-    let evt = document.createEvent('HTMLEvents');
-    evt.initEvent('keydown', false, true);
-    window.dispatchEvent(evt);
+    if (!topSideBtn.checked) {
+        prism.style.transform = 'rotateY(' + prismRotate + 'deg) translateY(' + prismTranslateY + 'px) ' + getPrismScale();
+    } else {
+        if (prismScale > 1) prismTranslateZ = -100;
+        else prismTranslateZ = 0;
+		prism.style.transform = 'rotateX(90deg) translateZ(' + prismTranslateZ + 'px)' + getPrismScale();
+    }
 });
 
 window.addEventListener('keydown', e => {
@@ -42,7 +47,7 @@ window.addEventListener('keydown', e => {
             if (e.keyCode === 40 && prismTranslateY > -400) prismTranslateY -= 50;
         }
 
-		prism.style.transform = 'rotateY(' + prismRotate + 'deg) translateY(' + prismTranslateY + 'px) ' + getPrismScale();
+        prism.style.transform = 'rotateY(' + prismRotate + 'deg) translateY(' + prismTranslateY + 'px) ' + getPrismScale();
 		prismTextSocial.style.transform = prismTextSocialTranslate + ' rotateY(' + -prismRotate + 'deg)';
 		prismTextEconomics.style.transform = prismTextEconomicsTranslate + ' rotateY(' + -prismRotate + 'deg)';
 		prismTextEcologics.style.transform = prismTextEcologicsTranslate + ' rotateY(' + -prismRotate + 'deg)';
@@ -50,12 +55,11 @@ window.addEventListener('keydown', e => {
 		dots.forEach(dot => {
 			dot.style.transform = getDotTranslate(dot) + ' rotateY(' + -prismRotate + 'deg)';
 		});
-	}
+    }
 });
 
 topSideBtn.addEventListener('change', e => {
 	if (e.target.checked) {
-        let prismTranslateZ;
         if (prismScale > 1) prismTranslateZ = -100;
         else prismTranslateZ = 0;
 		scene.style.perspective = 'none';
@@ -63,7 +67,6 @@ topSideBtn.addEventListener('change', e => {
 		prismTextSocial.style.transform = prismTextSocialTranslate + ' rotateX(-90deg)';
 		prismTextEconomics.style.transform = prismTextEconomicsTranslate + ' rotateX(-90deg)';
 		prismTextEcologics.style.transform = prismTextEcologicsTranslate + ' rotateX(-90deg)';
-
 
 		dots.forEach(dot => {
 			dot.style.transform = getDotTranslate(dot) + ' rotateX(-90deg)';

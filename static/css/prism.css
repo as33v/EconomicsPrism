@@ -52,13 +52,15 @@ body {
 	position: absolute;
 	width: 5px;
 	height: 5px;
-	font-size: 10px;
+	font-size: 5px;
 	font-weight: bold;
 	color: #fff;
+    text-shadow: 0 0 2px #333;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	border-radius: 50%;
+    box-shadow: 0 0 2px #333;
 }
 
 .checkbox { padding: 15px 20px; background: #eee; box-shadow: #aaa 0 0 10px; display: flex; align-items: center; position: absolute; top: 0; left: 0; }
