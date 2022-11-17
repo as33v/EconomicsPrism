@@ -29,6 +29,7 @@ body {
 	position: relative;
 	transform-style: preserve-3d;
 	transition: all .3s ease;
+    cursor: zoom-in;
 }
 
 .side { position: absolute; width: inherit; height: inherit; border: 1px solid #333; opacity: 0.8; }
@@ -49,9 +50,8 @@ body {
 
 .dot {
 	position: absolute;
-	background: blue;
-	width: 12px;
-	height: 12px;
+	width: 5px;
+	height: 5px;
 	font-size: 10px;
 	font-weight: bold;
 	color: #fff;
