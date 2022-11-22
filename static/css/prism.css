@@ -6,65 +6,120 @@
 
 body {
 	font-family: serif;
-	font-size: 16px;
+    overflow: hidden;
+}
+
+.main {
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(#888, transparent 1px), linear-gradient(90deg, #888, transparent 1px);
+    background-size: 15px 15px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 
 .scene {
-	width: 100%;
-	height: 100vh;
-	background: linear-gradient(#bbb, transparent 1px), linear-gradient(90deg, #bbb, transparent 1px);
-	background-size: 15px 15px;
-	background-position: center center;
+    height: 100vh;
 
-	display: flex;
-	justify-content: center;
-	align-items: center;
-
-	perspective: 1000px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
 }
 
 .prism {
-	width: 250px;
-	height: 500px;
-	position: relative;
-	transform-style: preserve-3d;
-	transition: all .3s ease;
-    cursor: zoom-in;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: all .2s ease;
 }
 
-.side { position: absolute; width: inherit; height: inherit; border: 1px solid #333; opacity: 0.8; }
-.left-side { transform-origin: left center; transform: translateZ(-75px) rotateY(-60deg); }
-.right-side { transform-origin: right center; transform: translateZ(-75px) rotateY(60deg); }
-.back-side { transform: rotateY(180deg) translateZ(75px); }
+.side {
+    width: inherit;
+    height: inherit;
 
-.topside-bg { position: absolute; width: 250px; height: 250px; transform-origin: left top; transform: translateZ(-75px) rotateX(90deg) translateZ(-500px); }
-.topside { position: absolute; width: inherit; height: 1px; background: #333; }
-.top-first { transform-origin: center top; transform: translateZ(-75px) rotateX(90deg); }
-.top-second { transform-origin: left top; transform: translateZ(-75px) rotateX(90deg) rotateZ(60deg); }
-.top-third { transform-origin: right top; transform: translateZ(-75px) rotateX(90deg) rotateZ(-60deg); }
+    position: absolute;
+}
 
-.text { position: absolute; transition: all .3s ease; }
-.text-social { transform: translate3d(calc(125px - 50%), 500px, 161.5px); }
-.text-economics { transform: translate3d(calc(-100% - 20px), 500px, -75px); }
-.text-ecologics { transform: translate3d(270px, 500px, -75px); }
+.backside {
+    transform-origin: top;
+}
+
+.leftside {
+    transform-origin: left top;
+}
+
+.rightside {
+    transform-origin: right top;
+}
+
+.text {
+    font-size: 14px;
+
+    position: absolute;
+    top: 100%;
+    transition: all .2s ease;
+}
+
+.text.first {
+    left: 0;
+}
+
+.text.second {
+    right: 0;
+}
+
+.text.third {
+    left: 50%;
+}
 
 .dot {
-	position: absolute;
-	width: 5px;
-	height: 5px;
-	font-size: 5px;
-	font-weight: bold;
-	color: #fff;
-    text-shadow: 0 0 2px #333;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	border-radius: 50%;
-    box-shadow: 0 0 2px #333;
+    width: 12px;
+    height: 12px;
+    color: #000;
+    font-size: 10px;
+    border: 1px solid #000;
+    border-radius: 50%;
+
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all .2s ease;
 }
 
-.checkbox { padding: 15px 20px; background: #eee; box-shadow: #aaa 0 0 10px; display: flex; align-items: center; position: absolute; top: 0; left: 0; }
-.checkbox input { margin-right: 5px; }
-.checkbox label { font-size: 18px; font-weight: bold; }
+.labels {
+    flex: 1;
+    height: 100%;
+    padding: 40px 10px;
 
-.regions { padding: 15px 20px; position: absolute; top: 0; right: 0; }
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.label {
+    display: block;
+    width: 33%;
+    font-size: 14px;
+    margin: 2px 10px;
+    position: relative;
+}
+
+.label:before {
+    content: "";
+    display: block;
+    width: 15px;
+    height: 10px;
+    background: var(--background, #fff);
+    border: 1px solid #000;
+    margin-right: 3px;
+    position: absolute;
+    left: -20px;
+    top: 50%;
+    transform: translateY(-50%);
+}

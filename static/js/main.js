@@ -1,97 +1,111 @@
 const scene = document.querySelector('.scene');
-
 const prism = document.querySelector('.prism');
-const prismTextSocial = document.querySelector('.text-social');
-const prismTextEconomics = document.querySelector('.text-economics');
-const prismTextEcologics = document.querySelector('.text-ecologics');
-const prismTextSocialTranslate = 'translate3d(calc(125px - 50%), 500px, 161.5px)';
-const prismTextEconomicsTranslate = 'translate3d(calc(-100% - 20px), 500px, -75px)';
-const prismTextEcologicsTranslate = 'translate3d(270px, 500px, -75px)';
-let prismRotate = 0;
-let prismTranslateY = 0;
-let prismTranslateZ = 0;
-let prismScale = 1;
+const prismSides = document.querySelectorAll('.prism .side');
+const prismBackside = document.querySelector('.prism .backside');
+const prismLeftside = document.querySelector('.prism .leftside');
+const prismRightside = document.querySelector('.prism .rightside');
+const prismFirstText = document.querySelector('.prism .text.first');
+const prismSecondText = document.querySelector('.prism .text.second');
+const prismThirdText = document.querySelector('.prism .text.third');
+const dots = document.querySelectorAll('.prism .dot');
+const labelBlocks = document.querySelectorAll('.label');
 
-const dots = document.querySelectorAll('.dot');
+const prismRatio = 1.5;
 
-const getDotTranslate = dot => {
-	let x = dot.dataset.x * 250;
-	let y = 500 - (dot.dataset.y * 500);
-	let z = (dot.dataset.z * 216.5) - 75;
+let prismWidth = 300;
+let prismRotateY = 0;
+let prismTopside = false;
+
+function getDotTranslate(dot) {
+    let prismHeight = prismWidth * prismRatio;
+    let innerHeight = Math.sqrt((prismWidth*prismWidth) - ((prismWidth/2)*(prismWidth/2)));
+    let center = innerHeight / 3;
+
+	let x = dot.dataset.x * prismWidth;
+	let y = prismHeight - (dot.dataset.y * prismHeight);
+	let z = (dot.dataset.z * innerHeight) - center;
+
 	return 'translate3d(' + x.toFixed(1) + 'px, ' + y.toFixed(1) + 'px, ' + z.toFixed(1) + 'px) translate(-50%, -50%)';
-};
+}
 
-const getPrismScale = () => 'scale3d(' + prismScale + ', ' + prismScale + ', ' + prismScale + ')';
+function sceneSetup() {
+    let innerHeight = Math.sqrt((prismWidth*prismWidth) - ((prismWidth/2)*(prismWidth/2)));
+    let center = innerHeight / 3;
+    let takeaway = innerHeight - center;
 
-const topSideBtn = document.getElementById('topSideBtn');
-let topSide = false;
+    scene.style.width = (prismWidth + takeaway + 50) + 'px';
 
-prism.addEventListener('click', e => {
-    prismScale = prismScale == 1 ? 2 : 1;
-    prismTranslateY = 0;
-    if (!topSideBtn.checked) {
-        prism.style.transform = 'rotateY(' + prismRotate + 'deg) translateY(' + prismTranslateY + 'px) ' + getPrismScale();
+    prism.style.width = prismWidth + 'px';
+    prism.style.height = (prismWidth * prismRatio) + 'px';
+
+    if (prismTopside) {
+        scene.style.perspective = 'none';
+
+        prism.style.transform = 'rotateX(90deg)';
+
+        prismSides.forEach(side => {
+            side.style.border = 'none';
+            side.style.borderTop = '1px solid #000';
+            side.style.background = 'none';
+        });
+
+        prismBackside.style.transform = 'translateZ(' + -center + 'px) rotateX(90deg)';
+        prismLeftside.style.transform = 'translateZ(' + -center + 'px) rotateY(-60deg) rotateX(90deg)';
+        prismRightside.style.transform = 'translateZ(' + -center + 'px) rotateY(60deg) rotateX(90deg)';
+
+        prismFirstText.style.transform = 'translate3d(-50%, 10px, ' + (-center-20) + 'px) rotateX(-90deg)';
+        prismSecondText.style.transform = 'translate3d(50%, 10px, ' + (-center-20) + 'px) rotateX(-90deg)';
+        prismThirdText.style.transform = 'translate3d(-50%, 10px, ' + (innerHeight - center + 20) + 'px) rotateX(-90deg)';
+
+        dots.forEach(dot => {
+            dot.style.transform = getDotTranslate(dot) + 'rotateX(-90deg)';
+        });
     } else {
-        if (prismScale > 1) prismTranslateZ = -100;
-        else prismTranslateZ = 0;
-		prism.style.transform = 'rotateX(90deg) translateZ(' + prismTranslateZ + 'px)' + getPrismScale();
+        scene.style.perspective = '1000px';
+
+        prism.style.transform = 'rotateY(' + prismRotateY + 'deg)';
+
+        prismSides.forEach(side => {
+            side.style.border = '1px solid #000';
+            side.style.background = 'url(/static/img/bg.svg)';
+            side.style.backgroundSize = 'cover';
+            side.style.backgroundPosition = 'center';
+        });
+
+        prismBackside.style.transform = 'translateZ(' + -center + 'px)';
+        prismLeftside.style.transform = 'translateZ(' + -center + 'px) rotateY(-60deg)';
+        prismRightside.style.transform = 'translateZ(' + -center + 'px) rotateY(60deg)';
+
+        prismFirstText.style.transform = 'translate3d(-50%, 10px, ' + (-center-20) + 'px) rotateY(' + -prismRotateY + 'deg)';
+        prismSecondText.style.transform = 'translate3d(50%, 10px, ' + (-center-20) + 'px) rotateY(' + -prismRotateY + 'deg)';
+        prismThirdText.style.transform = 'translate3d(-50%, 10px, ' + (innerHeight - center + 20) + 'px) rotateY(' + -prismRotateY + 'deg)';
+
+        dots.forEach(dot => {
+            dot.style.transform = getDotTranslate(dot) + ' rotateY(' + -prismRotateY + 'deg)';
+        });
     }
-});
+}
+
+function dotsColorize() {
+    let degree = Math.random()*360;
+    for (let i = 0; i < dots.length; i++) {
+        dots[i].style.background = 'hsl(' + (degree+(i*10)) + ', 85%, 85%)';
+        labelBlocks[i].style.setProperty('--background', 'hsl(' + (degree+(i*10)) + ', 85%, 85%)');
+    }
+}
+
 
 window.addEventListener('keydown', e => {
-	if (!topSideBtn.checked) {
-		if (e.keyCode === 37) prismRotate += 10;
-		if (e.keyCode === 39) prismRotate -= 10;
-        if (prismScale > 1) {
-            if (e.keyCode === 38 && prismTranslateY < 400) prismTranslateY += 50;
-            if (e.keyCode === 40 && prismTranslateY > -400) prismTranslateY -= 50;
-        }
-
-        prism.style.transform = 'rotateY(' + prismRotate + 'deg) translateY(' + prismTranslateY + 'px) ' + getPrismScale();
-		prismTextSocial.style.transform = prismTextSocialTranslate + ' rotateY(' + -prismRotate + 'deg)';
-		prismTextEconomics.style.transform = prismTextEconomicsTranslate + ' rotateY(' + -prismRotate + 'deg)';
-		prismTextEcologics.style.transform = prismTextEcologicsTranslate + ' rotateY(' + -prismRotate + 'deg)';
-
-		dots.forEach(dot => {
-			dot.style.transform = getDotTranslate(dot) + ' rotateY(' + -prismRotate + 'deg)';
-		});
-    }
+    if (e.keyCode === 37) prismRotateY -= 10;
+    if (e.keyCode === 39) prismRotateY += 10;
+    if (e.keyCode === 38 && prismWidth < 450) prismWidth += 10;
+    if (e.keyCode === 40 && prismWidth > 200) prismWidth -= 10;
+    if (e.keyCode === 32) prismTopside = !prismTopside;
+    if (e.keyCode === 68) dotsColorize();
+    sceneSetup();
 });
 
-topSideBtn.addEventListener('change', e => {
-	if (e.target.checked) {
-        if (prismScale > 1) prismTranslateZ = -100;
-        else prismTranslateZ = 0;
-		scene.style.perspective = 'none';
-		prism.style.transform = 'rotateX(90deg) translateY(' + prismTranslateY + 'px) TranslateZ(' + prismTranslateZ + 'px)' + getPrismScale();
-		prismTextSocial.style.transform = prismTextSocialTranslate + ' rotateX(-90deg)';
-		prismTextEconomics.style.transform = prismTextEconomicsTranslate + ' rotateX(-90deg)';
-		prismTextEcologics.style.transform = prismTextEcologicsTranslate + ' rotateX(-90deg)';
 
-		dots.forEach(dot => {
-			dot.style.transform = getDotTranslate(dot) + ' rotateX(-90deg)';
-		});
-	} else {
-		scene.style.perspective = '1000px';
-		prism.style.transform = 'rotateY(' + prismRotate + 'deg) translateY(' + prismTranslateY + 'px) ' + getPrismScale();
-		prismTextSocial.style.transform = prismTextSocialTranslate + ' rotateY(' + -prismRotate + 'deg)';
-		prismTextEconomics.style.transform = prismTextEconomicsTranslate + ' rotateY(' + -prismRotate + 'deg)';
-		prismTextEcologics.style.transform = prismTextEcologicsTranslate + ' rotateY(' + -prismRotate + 'deg)';
+sceneSetup();
+dotsColorize();
 
-		dots.forEach(dot => {
-			dot.style.transform = getDotTranslate(dot) + ' rotateY(' + -prismRotate + 'deg)';
-		});
-	}
-});
-
-document.addEventListener('DOMContentLoaded', e => {
-    const regions = document.querySelectorAll('.regions li');
-
-    for (let i = 0; i < dots.length; i++) {
-        let randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
-
-        dots[i].style.transform = getDotTranslate(dots[i]);
-        dots[i].style.background = randomColor;
-        regions[i].style.color = randomColor;
-    }
-});

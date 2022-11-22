@@ -6,10 +6,10 @@ from flask import Flask, request, render_template
 from functions import get_coordinates
 
 
-REGION_TITLE    = 'Регион'
-SOCIAL_TITLE    = 'Социо'
-ECONOMICS_TITLE = 'Экономика'
-ECOLOGICS_TITLE = 'Экология'
+REGION_TITLE = 'Регион'
+FIRST_TITLE = 'Социо'
+SECOND_TITLE = 'Экономика'
+THIRD_TITLE = 'Экология'
 
 
 app = Flask(__name__)
@@ -22,20 +22,20 @@ def index():
 
         dots = [] 
         for i in data[REGION_TITLE]:
-            social = data[SOCIAL_TITLE][i]
-            economics = data[ECONOMICS_TITLE][i]
-            ecologics = data[ECOLOGICS_TITLE][i]
+            first = data[FIRST_TITLE][i]
+            second = data[SECOND_TITLE][i]
+            third = data[THIRD_TITLE][i]
 
-            x, y, z = get_coordinates(social, economics, ecologics)
+            x, y, z = get_coordinates(first, second, third)
 
             dots.append({'id': int(i)+1,
                          'region': data[REGION_TITLE][i],
                          'x': x, 'y': y, 'z': z,})
 
         return render_template('prism.html', dots=dots,
-                               social_title=SOCIAL_TITLE,
-                               economics_title=ECONOMICS_TITLE,
-                               ecologics_title=ECOLOGICS_TITLE)
+                               first_title=FIRST_TITLE,
+                               second_title=SECOND_TITLE,
+                               third_title=THIRD_TITLE)
 
     return render_template('index.html')
 

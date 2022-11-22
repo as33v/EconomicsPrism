@@ -6,39 +6,30 @@
 		<title>Economics Prism</title>
 	</head>
 	<body>
-		<div class="scene">
-			<div class="checkbox">
-				<input type="checkbox" id="topSideBtn">
-				<label for="topSideBtn">Вид сверху</label>
-			</div>
-			<div class="prism">
-				<div class="side left-side"><img src="/static/img/bg.svg"/></div>
-				<div class="side right-side"><img src="/static/img/bg.svg"/></div>
-				<div class="side back-side"><img src="/static/img/bg.svg"/></div>
+        <div class="main">
+            <div class="scene">
+                <div class="prism">
+                    <div class="side backside"></div>
+                    <div class="side leftside"></div>
+                    <div class="side rightside"></div>
 
-				<img src="/static/img/topbg.svg" class="topside-bg"/>
-				<div class="topside top-first"></div>
-				<div class="topside top-second"></div>
-				<div class="topside top-third"></div>
+                    <div class="text first">{{ first_title }}</div>
+                    <div class="text second">{{ second_title }}</div>
+                    <div class="text third">{{ third_title }}</div>
 
-				<div class="text text-economics">{{ economics_title }}</div>
-				<div class="text text-ecologics">{{ ecologics_title }}</div>
-				<div class="text text-social">{{ social_title }}</div>
-
-                {% for dot in dots %}
-                <div class="dot" data-x="{{ dot['x'] }}" data-y="{{ dot['y'] }}" data-z="{{ dot['z'] }}">
-                    {{ dot['id'] }}
-                </div>
-                {% endfor %}
-			</div>
-            <div class="regions">
-                <ol>
                     {% for dot in dots %}
-                    <li>{{ dot['region'] }}</li>
+                    <div class="dot" data-x="{{ dot['x'] }}" data-y="{{ dot['y'] }}" data-z="{{ dot['z'] }}">
+                        {{ dot['id'] }}
+                    </div>
                     {% endfor %}
-                </ol>
+                </div>
             </div>
-		</div>
+            <div class="labels">
+                {% for dot in dots %}
+                <div class="label">{{ loop.index }}. {{ dot['region'] }}</div>
+                {% endfor %}
+            </div>
+        </div>
 
 		<script src="/static/js/main.js"></script>
 	</body>
