@@ -15,6 +15,8 @@ const prismRatio = 1.5;
 let prismWidth = 300;
 let prismRotateY = 0;
 let prismTopside = false;
+let dotSize = 15;
+let dotFontSize = 13;
 
 function getDotTranslate(dot) {
     let prismHeight = prismWidth * prismRatio;
@@ -37,6 +39,12 @@ function sceneSetup() {
 
     prism.style.width = prismWidth + 'px';
     prism.style.height = (prismWidth * prismRatio) + 'px';
+
+    dots.forEach(dot => {
+        dot.style.width = dotSize + 'px';
+        dot.style.height = dotSize + 'px';
+        dot.style.fontSize = dotFontSize + 'px';
+    });
 
     if (prismTopside) {
         scene.style.perspective = 'none';
@@ -88,9 +96,10 @@ function sceneSetup() {
 
 function dotsColorize() {
     let degree = Math.random()*360;
+    let step = 360 / dots.length
     for (let i = 0; i < dots.length; i++) {
-        dots[i].style.background = 'hsl(' + (degree+(i*10)) + ', 85%, 85%)';
-        labelBlocks[i].style.setProperty('--background', 'hsl(' + (degree+(i*10)) + ', 85%, 85%)');
+        dots[i].style.background = 'hsl(' + (degree+(i*step)) + ', 100%, 70%)';
+        labelBlocks[i].style.setProperty('--background', 'hsl(' + (degree+(i*step)) + ', 100%, 70%)');
     }
 }
 
@@ -102,6 +111,14 @@ window.addEventListener('keydown', e => {
     if (e.keyCode === 40 && prismWidth > 200) prismWidth -= 10;
     if (e.keyCode === 32) prismTopside = !prismTopside;
     if (e.keyCode === 68) dotsColorize();
+    if (e.keyCode === 90) {
+        dotSize++;
+        dotFontSize++;
+    }
+    if (e.keyCode === 88) {
+        dotSize--;
+        dotFontSize--;
+    }
     sceneSetup();
 });
 
