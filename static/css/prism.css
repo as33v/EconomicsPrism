@@ -27,6 +27,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    perspective: 1000px;
     overflow: hidden;
 }
 
@@ -39,6 +40,10 @@ body {
 .side {
     width: inherit;
     height: inherit;
+    border: 1px solid #000;
+    background: url(/static/img/bg.svg);
+    background-size: cover;
+    background-position: center;
 
     position: absolute;
 }
@@ -53,6 +58,26 @@ body {
 
 .rightside {
     transform-origin: right top;
+}
+
+.top, .bot {
+    width: inherit;
+    height: 1px;
+    background: #000;
+    position: absolute;
+    transform: rotateX(90deg);
+}
+
+.bot {
+    bottom: 0;
+}
+
+.top.left, .bot.left {
+    transform-origin: left;
+}
+
+.top.right, .bot.right {
+    transform-origin: right;
 }
 
 .text {
@@ -102,8 +127,8 @@ body {
 .label {
     display: block;
     width: 33%;
-    font-size: 14px;
-    margin: 2px 10px;
+    font-size: 12px;
+    padding: 2px 10px;
     position: relative;
 }
 
