@@ -20,11 +20,17 @@ def index():
         data_xls = pd.read_excel(f)
         data = json.loads(data_xls.to_json(force_ascii=False))
 
+        first_ratio = 1 / max(data[FIRST_TITLE].values())
+        second_ratio = 1 / max(data[SECOND_TITLE].values())
+        third_ratio = 1 / max(data[THIRD_TITLE].values())
+
+        ratio = min(first_ratio, second_ratio, third_ratio)
         dots = [] 
+
         for i in data[REGION_TITLE]:
-            first = data[FIRST_TITLE][i]
-            second = data[SECOND_TITLE][i]
-            third = data[THIRD_TITLE][i]
+            first = data[FIRST_TITLE][i] * ratio
+            second = data[SECOND_TITLE][i] * ratio
+            third = data[THIRD_TITLE][i] * ratio
 
             x, y, z = get_coordinates(first, second, third)
 

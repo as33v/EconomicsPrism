@@ -85,7 +85,7 @@ function sceneSetup() {
     if (prismTopside) {
         scene.style.width = (Math.sqrt(Math.pow(prismHeight, 2) + Math.pow(prismWidth, 2)) + 100) + 'px';
 
-        prism.style.transform = 'rotateX(90deg) rotateZ(' + -prismRotateY + 'deg)';
+        prism.style.transform = 'translateY(10%) rotateX(90deg) rotateZ(' + -prismRotateY + 'deg)';
 
         prismFirstText.style.transform = 'translate3d(0, 10px, ' + (-center-20) + 'px) rotateX(-90deg) rotateY(' + -prismRotateY + 'deg)';
         prismSecondText.style.transform = 'translate3d(0, 10px, ' + (-center-20) + 'px) rotateX(-90deg) rotateY(' + -prismRotateY + 'deg)';
